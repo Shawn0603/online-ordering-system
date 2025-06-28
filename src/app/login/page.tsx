@@ -23,9 +23,8 @@ export default function LoginPage() {
     const data = await res.json();
 
     if (res.ok) {
-      
       localStorage.setItem('user', JSON.stringify(data.user));
-      router.push('/user'); 
+      router.push('/user');
     } else {
       setError(data.message || 'Login failed');
     }
@@ -62,6 +61,17 @@ export default function LoginPage() {
           Login
         </button>
       </form>
+
+      
+      <p className="mt-6 text-sm">
+        Don’t have an account?{' '}
+        <span
+          className="text-blue-600 hover:underline cursor-pointer"
+          onClick={() => router.push('/register')}
+        >
+          Register here
+        </span>
+      </p>
     </main>
   );
 }

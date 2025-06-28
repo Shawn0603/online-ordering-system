@@ -51,7 +51,7 @@ export default function UserHomePage() {
             onClick={() => router.push('/history-orders')}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
-            Orders
+            History-Orders
           </button>
           <button
             onClick={() => alert('Coming soon: profile page')}
