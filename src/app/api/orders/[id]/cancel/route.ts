@@ -14,7 +14,7 @@ export async function PATCH(_: Request, context: { params: { id: string } }) {
       return new NextResponse('Order not found', { status: 404 })
     }
 
-    if (existingOrder.status !== 'pending') {
+    if (existingOrder.status !== 'paid') {
       return new NextResponse('Only pending orders can be cancelled', { status: 400 })
     }
 

@@ -11,13 +11,21 @@ type OrderedItem = {
 
 export default function OrderSuccessPage() {
   const [orderItems, setOrderItems] = useState<OrderedItem[]>([])
+  const [returnPath, setReturnPath] = useState('/')
   const router = useRouter()
 
   useEffect(() => {
     const savedItems = localStorage.getItem('latestOrder')
     if (savedItems) {
       setOrderItems(JSON.parse(savedItems))
-      localStorage.removeItem('latestOrder') 
+      localStorage.removeItem('latestOrder')
+    }
+
+    const user = localStorage.getItem('user')
+    if (user) {
+      setReturnPath('/user')
+    } else {
+      setReturnPath('/')
     }
   }, [])
 
@@ -49,9 +57,9 @@ export default function OrderSuccessPage() {
 
       <button
         className="mt-8 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-        onClick={() => router.push('/')}
+        onClick={() => router.push(returnPath)}
       >
-        Return to Home Page
+        Return to Menu
       </button>
     </div>
   )

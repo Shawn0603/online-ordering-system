@@ -24,12 +24,22 @@ export default function HomePage() {
 
   return (
     <div className="relative">
-      <button
-        onClick={() => router.push('/cart')}
-        className="absolute top-4 right-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-      >
-        Cart
-      </button>
+      <div className="absolute top-4 right-4 flex gap-4">
+  <button
+    onClick={() => router.push('/login')}
+    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+  >
+    Login
+  </button>
+
+  <button
+    onClick={() => router.push('/cart')}
+    className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+  >
+    Cart
+  </button>
+    </div>
+
 
       <main className="max-w-4xl mx-auto p-6">
         <h1 className="text-2xl font-bold mb-6">Meau List</h1>

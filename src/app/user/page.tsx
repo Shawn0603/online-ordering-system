@@ -1,0 +1,88 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import DishCard from '@/components/user/DishCard';
+
+type Dish = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image?: string;
+};
+
+export default function UserHomePage() {
+  const router = useRouter();
+  const [userName, setUserName] = useState<string | null>(null);
+  const [dishes, setDishes] = useState<Dish[]>([]);
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const user = JSON.parse(userData);
+      setUserName(user.name || 'User');
+    } else {
+      router.push('/login');
+    }
+
+    fetch('/api/dishes', { cache: 'no-store' })
+      .then((res) => res.json())
+      .then((data) => setDishes(data));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    router.push('/');
+  };
+
+  return (
+    <div className="relative">
+      <header className="flex justify-between items-center p-4 border-b">
+        <div className="font-bold text-xl">Welcome, {userName}</div>
+        <div className="space-x-2">
+          <button
+            onClick={() => router.push('/cart')}
+            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+          >
+            Cart
+          </button>
+          <button
+            onClick={() => router.push('/history-orders')}
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Orders
+          </button>
+          <button
+            onClick={() => alert('Coming soon: profile page')}
+            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+          >
+            Profile
+          </button>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          >
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <main className="max-w-4xl mx-auto p-6">
+        <h2 className="text-2xl font-semibold mb-4">Menu</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {dishes.map((dish) => (
+            <DishCard
+              key={dish.id}
+              id={dish.id}
+              name={dish.name}
+              description={dish.description}
+              price={dish.price}
+              image={dish.image}
+            />
+          ))}
+        </div>
+      </main>
+    </div>
+  );
+}
