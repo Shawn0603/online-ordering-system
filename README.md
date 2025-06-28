@@ -1,29 +1,29 @@
-# 🍽️ Online Food Ordering System
+# Online Food Ordering System
 
 A full-stack food ordering platform that supports guest browsing and ordering, user registration and login, order history tracking, and merchant-side dish management. Designed to simulate a real-world restaurant workflow with role-based access and staged order processing.
 
 ---
 
-## 🚀 Features
+## Features
 
-### 👤 User Roles
+### User Roles
 - **Guest**: Browse menu and place orders without login
 - **Registered User**: Register, log in, place orders, and view personal order history
 - **Merchant**: (In progress) Manage dish availability and order status via admin dashboard
 
-### 📦 Ordering System
+### Ordering System
 - Place multiple orders before final payment (`Place` + `Pay` model)
 - Persisted cart and order data with status tracking (`pending` → `paid`)
 - Real-time order history display with item details and timestamps
 
-### 🔐 Authentication
+### Authentication
 - Custom login and registration flows without third-party auth providers
 - Form validation and error feedback for better UX
 - Session storage used for user identification and API access
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 | Layer     | Tech                                 |
 |-----------|--------------------------------------|
@@ -35,7 +35,7 @@ A full-stack food ordering platform that supports guest browsing and ordering, u
 
 ---
 
-## 🖥️ Getting Started
+## Getting Started
 
 ### 1. Clone and install
 
