@@ -1,30 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
-import jwt from 'jsonwebtoken'
-import prisma from '@/lib/prisma' 
+import { NextResponse } from 'next/server'
+import prisma from '@/lib/prisma'
 
-
-
-
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const authHeader = req.headers.get('authorization')
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'Missing token' }, { status: 401 })
-    }
-
-    const token = authHeader.split(' ')[1]
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { adminId: string }
-
-    
-    const admin = await prisma.admin.findUnique({
-      where: { id: decoded.adminId },
-    })
-
-    if (!admin) {
-      return NextResponse.json({ error: 'Invalid admin' }, { status: 403 })
-    }
-
-    
+    // 开发期间：不验证身份，直接返回所有订单
     const orders = await prisma.order.findMany({
       orderBy: { createdAt: 'desc' },
       include: {

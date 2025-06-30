@@ -25,16 +25,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch('/api/admin/orders', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        })
-
-        if (!res.ok) {
-          router.push('/admin/login')
-          return
-        }
+        const res = await fetch('/api/admin/orders') // ✅ 删除 headers
 
         const data = await res.json()
         setOrders(data.orders)
@@ -46,11 +37,10 @@ export default function AdminDashboard() {
     }
 
     fetchOrders()
-  }, [router])
+  }, [])
 
   const handleLogout = () => {
-    localStorage.removeItem('token')
-    router.push('/admin/login')
+    router.push('/admin/login') // 依然可以跳转
   }
 
   const handleEditMenu = () => {
