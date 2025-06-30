@@ -19,7 +19,7 @@ export default function AdminLoginPage() {
     const data = await res.json()
 
     if (res.ok) {
-      router.push('/admin') // 登录成功跳转
+      router.push('/admin') 
     } else {
       setError(data.error || 'Login failed')
     }
@@ -27,15 +27,15 @@ export default function AdminLoginPage() {
 
   return (
     <main className="max-w-md mx-auto p-6 flex flex-col justify-center min-h-screen">
-      {/* 标题 */}
+      
       <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Admin Portal</h1>
 
-      {/* 错误提示 */}
+      
       {error && (
         <p className="text-red-500 mb-4 text-center">{error}</p>
       )}
 
-      {/* 输入表单 */}
+      
       <input
         type="email"
         placeholder="Email"
@@ -57,7 +57,7 @@ export default function AdminLoginPage() {
         Login
       </button>
 
-      {/* 返回游客界面 */}
+      
       <button
         onClick={() => router.push('/')}
         className="text-sm text-gray-600 mt-6 hover:underline"
