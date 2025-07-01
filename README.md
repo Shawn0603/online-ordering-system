@@ -17,6 +17,17 @@ Orders are stored locally and will be lost after refresh or exit
 
 Cannot view order history or access advanced features
 
+Registered User
+Sign up and log in to create a personal account
+
+Place multiple orders and view them in real-time before final checkout
+
+Orders are saved persistently and can be reviewed in a history section
+
+Eligible for additional features like loyalty points, feedback, and tipping
+
+
+
 
 
 ### Ordering System
