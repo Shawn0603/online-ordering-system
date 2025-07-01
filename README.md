@@ -8,9 +8,16 @@ A full-stack food ordering platform that supports guest browsing and ordering, u
 This system features a three-level role-based permission structure, each offering unique capabilities and access:
 
 ### User Roles
-- **Guest**: Browse menu and place orders without login
-- **Registered User**: Register, log in, place orders, and view personal order history
-- **Merchant**: (In progress) Manage dish availability and order status via admin dashboard
+Guest
+Browse all available dishes without logging in
+
+Add items to the cart and place orders
+
+Orders are stored locally and will be lost after refresh or exit
+
+Cannot view order history or access advanced features
+
+
 
 ### Ordering System
 - Place multiple orders before final payment (`Place` + `Pay` model)
