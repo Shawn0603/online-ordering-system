@@ -26,7 +26,16 @@ Orders are saved persistently and can be reviewed in a history section
 
 Eligible for additional features like loyalty points, feedback, and tipping
 
+Admin (Merchant)
+Secure login to access the merchant dashboard
 
+Add, update, or remove dishes from the menu
+
+View and manage all user orders, including past orders
+
+Cancel orders due to unavailability or inventory issues
+
+Monitor system usage and control business operations
 
 
 
