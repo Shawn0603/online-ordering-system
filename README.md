@@ -1,10 +1,11 @@
 # Online Food Ordering System
 
-A full-stack food ordering platform that supports guest browsing and ordering, user registration and login, order history tracking, and merchant-side dish management. Designed to simulate a real-world restaurant workflow with role-based access and staged order processing.
+A full-stack food ordering platform that supports guest browsing and ordering, user registration and login, order history tracking, and merchant-side dish management. Designed to simulate a real-world restaurant workflow with role-based access and staged order processing. 
 
 ---
 
 ## Features
+This system features a three-level role-based permission structure, each offering unique capabilities and access:
 
 ### User Roles
 - **Guest**: Browse menu and place orders without login
