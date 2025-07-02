@@ -8,7 +8,7 @@ A full-stack food ordering platform that supports guest browsing and ordering, u
 This system features a three-level role-based permission structure, each offering unique capabilities and access:
 
 ### User Roles
-Guest
+## Guest
 Browse all available dishes without logging in
 
 Add items to the cart and place orders
