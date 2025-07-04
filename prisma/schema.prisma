@@ -48,6 +48,7 @@ model Dish {
   available   Boolean  @default(true)
   orderItems  OrderItem[]
   createdAt   DateTime @default(now())
+  imageUrl    String?
 }
 
 model Order {
