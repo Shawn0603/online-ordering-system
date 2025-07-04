@@ -1,3 +1,4 @@
+// app/admin/menu/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -12,8 +13,6 @@ type Dish = {
 
 export default function AdminMenuPage() {
   const [dishes, setDishes] = useState<Dish[]>([]);
-  const [newName, setNewName] = useState("");
-  const [newPrice, setNewPrice] = useState("");
   const router = useRouter();
 
   const fetchDishes = async () => {
@@ -33,18 +32,6 @@ export default function AdminMenuPage() {
     await fetchDishes();
   };
 
-  const handleAddDish = async () => {
-    if (!newName || !newPrice) return;
-    await fetch(`/api/admin/menu/create`, {
-      method: "POST",
-      body: JSON.stringify({ name: newName, price: parseFloat(newPrice) }),
-      headers: { "Content-Type": "application/json" },
-    });
-    setNewName("");
-    setNewPrice("");
-    await fetchDishes();
-  };
-
   const activeDishes = dishes.filter((d) => d.available);
   const inactiveDishes = dishes.filter((d) => !d.available);
 
@@ -57,6 +44,16 @@ export default function AdminMenuPage() {
           className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
         >
           Back
+        </button>
+      </div>
+
+      {/* ➕ Add Dish */}
+      <div className="mb-6">
+        <button
+          onClick={() => router.push("/admin/menu/new")}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          ➕ Add New Dish
         </button>
       </div>
 
@@ -126,33 +123,6 @@ export default function AdminMenuPage() {
             </li>
           ))}
         </ul>
-      </section>
-
-      {/* ➕ Add New Dish */}
-      <section className="border-t pt-6">
-        <h2 className="text-lg font-semibold mb-2">Add New Dish</h2>
-        <div className="flex gap-4 items-center">
-          <input
-            type="text"
-            placeholder="Dish Name"
-            value={newName}
-            onChange={(e) => setNewName(e.target.value)}
-            className="border rounded px-3 py-2 w-1/3"
-          />
-          <input
-            type="number"
-            placeholder="Price"
-            value={newPrice}
-            onChange={(e) => setNewPrice(e.target.value)}
-            className="border rounded px-3 py-2 w-1/4"
-          />
-          <button
-            onClick={handleAddDish}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Add Dish
-          </button>
-        </div>
       </section>
     </main>
   );
