@@ -31,17 +31,25 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-6">
-      <h1 className="text-2xl font-bold mb-6">Login</h1>
+    <main className="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-b from-yellow-50 to-orange-100
 
-      <form onSubmit={handleLogin} className="w-full max-w-sm space-y-4">
+">
+      <h1 className="text-3xl font-bold mb-1 text-gray-800">
+        Online Food Ordering System
+      </h1>
+      <h2 className="text-md text-gray-600 mb-6">User Login Portal</h2>
+
+      <form
+        onSubmit={handleLogin}
+        className="w-full max-w-sm bg-white p-6 rounded-xl shadow-md space-y-4"
+      >
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full p-2 border rounded"
+          className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
         <input
           type="password"
@@ -49,29 +57,34 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full p-2 border rounded"
+          className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-cyan-400"
         />
 
-        {error && <p className="text-red-500">{error}</p>}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+          className="w-full bg-blue-600 text-white py-3 px-4 rounded hover:bg-blue-700 transition"
         >
           Login
         </button>
-      </form>
 
-      
-      <p className="mt-6 text-sm">
-        Don’t have an account?{' '}
-        <span
-          className="text-blue-600 hover:underline cursor-pointer"
+        <button
+          type="button"
           onClick={() => router.push('/register')}
+          className="w-full bg-gray-200 text-gray-800 py-3 px-4 rounded hover:bg-gray-300 transition"
         >
-          Register here
-        </span>
-      </p>
+          Register
+        </button>
+
+        <button
+          type="button"
+          onClick={() => router.push('/')}
+          className="w-full bg-gray-100 text-gray-600 py-3 px-4 rounded hover:bg-gray-200 transition"
+        >
+          Back to Dashboard
+        </button>
+      </form>
     </main>
   );
 }
