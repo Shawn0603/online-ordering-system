@@ -19,51 +19,55 @@ export default function AdminLoginPage() {
     const data = await res.json()
 
     if (res.ok) {
-      router.push('/admin') 
+      router.push('/admin')
     } else {
       setError(data.error || 'Login failed')
     }
   }
 
   return (
-    <main className="max-w-md mx-auto p-6 flex flex-col justify-center min-h-screen">
-      
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Admin Portal</h1>
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-100 to-white">
+      <div className="max-w-md w-full bg-white p-8 rounded-xl shadow-md">
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-1">
+          Smart Online Ordering System
+        </h1>
+        <h2 className="text-md text-center text-gray-500 mb-6">
+          Admin Portal
+        </h2>
 
-      
-      {error && (
-        <p className="text-red-500 mb-4 text-center">{error}</p>
-      )}
+        {error && (
+          <p className="text-red-500 text-center mb-4">{error}</p>
+        )}
 
-      
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="border p-2 rounded w-full mb-3"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="border p-2 rounded w-full mb-4"
-      />
-      <button
-        onClick={handleLogin}
-        className="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700"
-      >
-        Login
-      </button>
+        <input
+          type="email"
+          placeholder="Enter admin email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border p-3 rounded w-full mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <input
+          type="password"
+          placeholder="Enter password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="border p-3 rounded w-full mb-5 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
 
-      
-      <button
-        onClick={() => router.push('/')}
-        className="text-sm text-gray-600 mt-6 hover:underline"
-      >
-        ← Back to Home
-      </button>
+        <button
+          onClick={handleLogin}
+          className="bg-blue-600 text-white font-semibold px-4 py-3 rounded w-full hover:bg-blue-700 mb-3 transition"
+        >
+          Login
+        </button>
+
+        <button
+          onClick={() => router.push('/')}
+          className="bg-gray-200 text-gray-700 font-semibold px-4 py-3 rounded w-full hover:bg-gray-300 transition"
+        >
+          Back to Home
+        </button>
+      </div>
     </main>
   )
 }
