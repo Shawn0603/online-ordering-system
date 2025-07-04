@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 export default function CartPage() {
   const items = useCartStore((state) => state.items)
   const clearCart = useCartStore((state) => state.clearCart)
+  const updateQuantity = useCartStore((state) => state.updateQuantity)
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const router = useRouter()
 
@@ -14,7 +15,6 @@ export default function CartPage() {
     return stored ? JSON.parse(stored).id : undefined
   }
 
-  // ✅ 修改后的 handlePlaceOrder，不再调用后端 API
   const handlePlaceOrder = () => {
     if (items.length === 0) {
       alert('Cart is empty!')
@@ -90,14 +90,31 @@ export default function CartPage() {
             <ul className="space-y-4">
               {items.map((item) => (
                 <li key={item.dishId} className="border p-4 rounded shadow-sm">
-                  <div className="flex justify-between">
+                  <div className="flex justify-between items-center">
                     <div>
                       <h2 className="font-semibold">{item.name}</h2>
                       <p className="text-sm text-gray-500">
                         Price: ${item.price.toFixed(2)} × {item.quantity}
                       </p>
                     </div>
-                    <div className="font-bold text-blue-600">
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => updateQuantity(item.dishId, item.quantity - 1)}
+                        className="px-2 py-1 bg-gray-300 rounded hover:bg-gray-400"
+                      >
+                        -
+                      </button>
+                      <span className="w-6 text-center">{item.quantity}</span>
+                      <button
+                        onClick={() => updateQuantity(item.dishId, item.quantity + 1)}
+                        className="px-2 py-1 bg-gray-300 rounded hover:bg-gray-400"
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <div className="font-bold text-blue-600 w-16 text-right">
                       ${(item.price * item.quantity).toFixed(2)}
                     </div>
                   </div>

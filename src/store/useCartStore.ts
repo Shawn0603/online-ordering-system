@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 type CartItem = {
-  dishId: string; 
+  dishId: string;
   name: string;
   price: number;
   quantity: number;
@@ -10,7 +10,8 @@ type CartItem = {
 type CartState = {
   items: CartItem[];
   addToCart: (item: Omit<CartItem, 'quantity'>) => void;
-  clearCart: () => void; 
+  updateQuantity: (dishId: string, quantity: number) => void;
+  clearCart: () => void;
 };
 
 export const useCartStore = create<CartState>((set) => ({
@@ -30,5 +31,20 @@ export const useCartStore = create<CartState>((set) => ({
         };
       }
     }),
-  clearCart: () => set({ items: [] }), 
+
+  updateQuantity: (dishId, quantity) =>
+    set((state) => {
+      if (quantity <= 0) {
+        return {
+          items: state.items.filter((i) => i.dishId !== dishId),
+        };
+      }
+      return {
+        items: state.items.map((i) =>
+          i.dishId === dishId ? { ...i, quantity } : i
+        ),
+      };
+    }),
+
+  clearCart: () => set({ items: [] }),
 }));
