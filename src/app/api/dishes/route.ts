@@ -5,10 +5,19 @@ import { PrismaClient } from '@/generated/prisma'
 
 const prisma = new PrismaClient()
 
-// GET：Get all the dishes
+// GET: Fetch all dishes
 export async function GET() {
   try {
-    const dishes = await prisma.dish.findMany()
+    const dishes = await prisma.dish.findMany({
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        price: true,
+        available: true,
+        imageUrl: true,
+      },
+    })
     return NextResponse.json(dishes)
   } catch (error) {
     console.error('Error fetching dishes:', error)
@@ -16,11 +25,11 @@ export async function GET() {
   }
 }
 
-// POST：create new dishes
+// POST: Create new dish
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { name, price, description } = body
+    const { name, price, description, imageUrl, available } = body
 
     if (!name || !price) {
       return new NextResponse('Missing name or price', { status: 400 })
@@ -31,6 +40,8 @@ export async function POST(req: Request) {
         name,
         price,
         description: description || '',
+        imageUrl,
+        available: available ?? true,
       },
     })
 

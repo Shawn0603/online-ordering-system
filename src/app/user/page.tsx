@@ -1,40 +1,47 @@
-'use client';
+'use client'
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import DishCard from '@/components/user/DishCard';
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import DishCard from '@/components/user/DishCard'
 
 type Dish = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  image?: string;
-};
+  id: string
+  name: string
+  description: string
+  price: number
+  imageUrl?: string
+  available: boolean
+}
 
 export default function UserHomePage() {
-  const router = useRouter();
-  const [userName, setUserName] = useState<string | null>(null);
-  const [dishes, setDishes] = useState<Dish[]>([]);
+  const router = useRouter()
+  const [userName, setUserName] = useState<string | null>(null)
+  const [availableDishes, setAvailableDishes] = useState<Dish[]>([])
+  const [unavailableDishes, setUnavailableDishes] = useState<Dish[]>([])
 
   useEffect(() => {
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem('user')
     if (userData) {
-      const user = JSON.parse(userData);
-      setUserName(user.name || 'User');
+      const user = JSON.parse(userData)
+      setUserName(user.name || 'User')
     } else {
-      router.push('/login');
+      router.push('/login')
     }
 
     fetch('/api/dishes', { cache: 'no-store' })
       .then((res) => res.json())
-      .then((data) => setDishes(data));
-  }, []);
+      .then((data: Dish[]) => {
+        const available = data.filter((dish) => dish.available)
+        const unavailable = data.filter((dish) => !dish.available)
+        setAvailableDishes(available)
+        setUnavailableDishes(unavailable)
+      })
+  }, [])
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
-    router.push('/');
-  };
+    localStorage.removeItem('user')
+    router.push('/')
+  }
 
   return (
     <div className="relative">
@@ -51,7 +58,7 @@ export default function UserHomePage() {
             onClick={() => router.push('/history-orders')}
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
-            History-Orders
+            History Orders
           </button>
           <button
             onClick={() => alert('Coming soon: profile page')}
@@ -68,21 +75,37 @@ export default function UserHomePage() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto p-6">
-        <h2 className="text-2xl font-semibold mb-4">Menu</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {dishes.map((dish) => (
+      <main className="max-w-5xl mx-auto p-6">
+        <h2 className="text-2xl font-semibold mb-4">Available Dishes</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-10">
+          {availableDishes.map((dish) => (
             <DishCard
               key={dish.id}
               id={dish.id}
               name={dish.name}
               description={dish.description}
               price={dish.price}
-              image={dish.image}
+              imageUrl={dish.imageUrl}
+              available={dish.available}
+            />
+          ))}
+        </div>
+
+        <h2 className="text-2xl font-semibold mb-4">Unavailable Dishes</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-gray-400">
+          {unavailableDishes.map((dish) => (
+            <DishCard
+              key={dish.id}
+              id={dish.id}
+              name={dish.name}
+              description={dish.description}
+              price={dish.price}
+              imageUrl={dish.imageUrl}
+              available={dish.available}
             />
           ))}
         </div>
       </main>
     </div>
-  );
+  )
 }
