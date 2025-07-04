@@ -8,9 +8,10 @@ type DishCardProps = {
   description: string;
   price: number;
   image?: string;
+  available: boolean;
 };
 
-export default function DishCard({ id, name, description, price, image }: DishCardProps) {
+export default function DishCard({ id, name, description, price, image, available }: DishCardProps) {
   const addToCart = useCartStore((state) => state.addToCart);
 
   return (
@@ -21,11 +22,15 @@ export default function DishCard({ id, name, description, price, image }: DishCa
       <p className="mt-2 text-blue-600 font-bold">${price.toFixed(2)}</p>
 
       <button
-        onClick={() => addToCart({ dishId: id, name, price })}
-
-        className="mt-3 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+        onClick={() => available && addToCart({ dishId: id, name, price })}
+        disabled={!available}
+        className={`mt-3 px-3 py-1 rounded w-full ${
+          available
+            ? 'bg-blue-500 text-white hover:bg-blue-600'
+            : 'bg-gray-400 text-white cursor-not-allowed'
+        }`}
       >
-        Add to Cart
+        {available ? 'Add to Cart' : 'Unavailable'}
       </button>
     </div>
   );
